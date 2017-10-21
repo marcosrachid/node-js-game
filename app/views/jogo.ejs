@@ -20,6 +20,7 @@
 					window.location.href = '/sair';
 				});
 				$('#btn_suditos').click(function(){
+					$('.alert').hide();
 					$.ajax({
 						url: '/suditos',
 						method: 'get',
@@ -29,6 +30,7 @@
 					});
 				});
 				$('#btn_pergaminhos').click(function(){
+					$('.alert').hide();
 					$.ajax({
 						url: '/pergaminhos',
 						method: 'get',
@@ -53,6 +55,12 @@
 		</nav>
 
 	    <div class="container">
+
+	    	<% if(comando_invalido == 'S') {%>
+			<div class="alert alert-danger">
+                <strong>Operação inválida, verifique se todos os campos foram informados!</strong>
+            </div>
+	    	<% } %>
 	    	
 			<div class="row">
 	    		<div class="col-sm-3 casa">
@@ -88,7 +96,7 @@
 				<div class="col-sm-3"></div>
 				<div class="col-sm-9">
 					<div class="acoes" id="acoes">
-						Senhor
+						Senhor, o que deseja fazer ?
 					</div>					
 				</div>
 			</div>
