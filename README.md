@@ -28,4 +28,8 @@ nodemon app
 
 ## Source
 
-<https://www.udemy.com/curso-completo-do-desenvolvedor-nodejs>
+Source  | Data
+------------- | -------------
+Author  | Jorge Sant Ana
+Class  | Node.JS Development
+Link  | <https://www.udemy.com/curso-completo-do-desenvolvedor-nodejs>
