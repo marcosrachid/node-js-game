@@ -36,10 +36,23 @@
 						method: 'get',
 						success: function(data) {
 							$('#acoes').html(data);
+							clearTimeout(timerId);
+							cronometro();
 						}
 					});
 				});
 			});
+
+			var timerId = null;
+
+			function cronometro(){
+				$('.tempo_restante').each(function(){
+					var segundos = $(this).html();
+					var segundos_atuais = parseInt(segundos) - 1;
+					$(this).html(segundos_atuais);
+				});
+				timerId = setTimeout('cronometro()', 1000);
+			}
 		</script>
 
 	</head>
@@ -56,9 +69,9 @@
 
 	    <div class="container">
 
-	    	<% if(comando_invalido == 'S') {%>
-			<div class="alert alert-danger">
-                <strong>Operação inválida, verifique se todos os campos foram informados!</strong>
+	    	<% if(msg != null) {%>
+			<div class="alert <%=msg.alert%>">
+                <strong><%=msg.msg%></strong>
             </div>
 	    	<% } %>
 	    	

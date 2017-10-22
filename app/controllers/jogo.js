@@ -4,15 +4,20 @@ module.exports.jogo = function(application, req, res) {
 		return;
 	}
 
-	var comando_invalido = 'N';
-	if (req.query.comando_invalido == 'S') {
-		comando_invalido = 'S';
+	var msg = null;
+	switch (req.query.msg) {
+		case 'suditos_failed':
+			msg = {alert: 'alert-danger', msg: 'Operação inválida, verifique se todos os campos foram informados!'};
+			break;
+		case 'suditos_success':
+			msg = {alert: 'alert-success', msg: 'Ação incluida com sucesso'};
+			break;
 	}
 
 	var connection = application.config.dbConnection;
 	var JogoDAO = new application.app.models.dao.JogoDAO(connection);
 
-	JogoDAO.iniciaJogo(req, res, comando_invalido);
+	JogoDAO.iniciaJogo(msg, req, res);
 }
 
 module.exports.sair = function(application, req, res) {
@@ -36,7 +41,10 @@ module.exports.pergaminhos = function(application, req, res) {
 		return;
 	}
 
-	res.render('pergaminhos', {validacao: {}});
+	var connection = application.config.dbConnection;
+	var JogoDAO = new application.app.models.dao.JogoDAO(connection);
+
+	JogoDAO.getAcoes(req, res);
 }
 
 module.exports.ordenar_acao_sudito = function(application, req, res) {
@@ -44,7 +52,7 @@ module.exports.ordenar_acao_sudito = function(application, req, res) {
 		res.render('index', {validacao: {}});
 		return;
 	}
-	
+
 	var dadosForm = req.body;
 
 	req.assert('acao', 'Ação deve ser informada').notEmpty();
@@ -53,9 +61,15 @@ module.exports.ordenar_acao_sudito = function(application, req, res) {
 	var erros = req.validationErrors();
 
 	if(erros) {
-		res.redirect('jogo?comando_invalido=S');
+		res.redirect('jogo?msg=suditos_failed');
 		return;
 	}
 
-	res.send('tudo ok');
+	var connection = application.config.dbConnection;
+	var JogoDAO = new application.app.models.dao.JogoDAO(connection);
+
+	dadosForm.usuario = req.session.usuario;
+	JogoDAO.acao(dadosForm, req, res);
+
+	res.redirect('jogo?msg=suditos_success');
 }
