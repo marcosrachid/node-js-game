@@ -10,10 +10,13 @@ module.exports.jogo = function(application, req, res) {
 			msg = {alert: 'alert-danger', msg: 'Operação inválida, verifique se todos os campos foram informados!'};
 			break;
 		case 'suditos_success':
-			msg = {alert: 'alert-success', msg: 'Ação incluida com sucesso'};
+			msg = {alert: 'alert-info', msg: 'Ação incluida com sucesso'};
 			break;
 		case 'finish_activity':
 			msg = {alert: 'alert-info', msg: 'Senhor, a atividade ordenada foi finalizada'};
+			break;
+		case 'revoked_order':
+			msg = {alert: 'alert-info', msg: 'Senhor, a atividade ordenada foi revogada'};
 			break;
 	}
 
@@ -75,4 +78,14 @@ module.exports.ordenar_acao_sudito = function(application, req, res) {
 	JogoDAO.acao(dadosForm, req, res);
 
 	res.redirect('jogo?msg=suditos_success');
+}
+
+module.exports.revogar_acao = function(application, req, res) {
+	var url_query = req.query;
+
+	var connection = application.config.dbConnection;
+	var JogoDAO = new application.app.models.dao.JogoDAO(connection);
+
+	var id = url_query.id_acao;
+	JogoDAO.revogarAcao(id, req, res);
 }

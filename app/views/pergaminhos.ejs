@@ -23,7 +23,7 @@
 					break;
 			}
 			%>
-			<li><%=acoes[i].quantidade.toString()%> <%=txt_acao%>. - <small>restam <span class="tempo_restante"><%=Math.round((acoes[i].acao_termina - momento_atual)/1000)%></span> segundos - <a href="#">revogar ordem</a></small></li>
+			<li><%=acoes[i].quantidade.toString()%> <%=txt_acao%>. - <small>restam <span class="tempo_restante"><%=Math.round((acoes[i].acao_termina - momento_atual)/1000)%></span> segundos - <a href="/revogar_acao?id_acao=<%=acoes[i]._id.toString()%>">revogar ordem</a></small></li>
 		<%
 		} 
 		%>
