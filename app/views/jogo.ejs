@@ -49,7 +49,11 @@
 				$('.tempo_restante').each(function(){
 					var segundos = $(this).html();
 					var segundos_atuais = parseInt(segundos) - 1;
-					$(this).html(segundos_atuais);
+					if (segundos_atuais < 0) {
+						window.location.href = "/jogo?msg=finish_activity";
+					} else {
+						$(this).html(segundos_atuais);
+					}
 				});
 				timerId = setTimeout('cronometro()', 1000);
 			}

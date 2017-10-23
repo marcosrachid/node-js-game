@@ -12,6 +12,9 @@ module.exports.jogo = function(application, req, res) {
 		case 'suditos_success':
 			msg = {alert: 'alert-success', msg: 'Ação incluida com sucesso'};
 			break;
+		case 'finish_activity':
+			msg = {alert: 'alert-info', msg: 'Senhor, a atividade ordenada foi finalizada'};
+			break;
 	}
 
 	var connection = application.config.dbConnection;
