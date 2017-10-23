@@ -12,6 +12,7 @@ npm install ejs --save
 npm install consign --save
 npm install body-parser --save
 npm install mongodb --save
+npm install crypto --save
 npm install -g nodemon
 ```
 
